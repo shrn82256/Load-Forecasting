@@ -4,6 +4,10 @@
 const char *ssid = "abcd";
 const char *password = "abcdefgh";
 
+#include <dht.h>
+#define DHT11_PIN A0
+dht DHT;
+
 #define WHITE_LED_PIN 4
 
 bool loadFlag = false;
@@ -72,10 +76,10 @@ void loop()
 
       HTTPClient http;
 
-      String base_url = "http://000.asisodia.com/tarp/";
-      String user = "aryan3";
+      String url = "https://load-forecasting.herokuapp.com/log?q=1403200" + String(load);
 
-      http.begin(get_url(base_url, user, temp, load));
+      http.begin(url);
+      Serial.println(url);
 
       int httpCode = http.GET();
 
@@ -89,11 +93,6 @@ void loop()
       http.end();
     }
   }
-}
-
-String get_url(String base_url, String user, float temperature, float load)
-{
-  return base_url + "?user=" + user + "&temperature=" + String(temperature) + "&load=" + String(load);
 }
 
 void blink_led(int ledPinNumber)
