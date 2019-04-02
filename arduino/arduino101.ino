@@ -1,5 +1,5 @@
 #include <SoftwareSerial.h>
-SoftwareSerial mySerial(0, 1);
+SoftwareSerial mySerial(10, 11);
 
 int temp;
 String str;
@@ -8,7 +8,7 @@ String str;
 int led[N] = {2, 3, 4, 5, 6, 7, 8, 9};
 bool led_status[N] = {0, 0, 0, 0, 0, 0, 0, 0};
 
-int load_value[N] = {10000, 15000, 20000, 25000, 25000, 20000, 15000, 10000};
+int load_value[N] = {1000, 1500, 2000, 2500, 2500, 2000, 1500, 1000};
 
 void setup()
 {
@@ -40,15 +40,12 @@ void loop()
 
   j = (j + 1) % N;
   k = (k + 1) % N;
-  delay(5000);
+  delay(10000);
 }
 
 void updateLed(int i, bool status)
 {
-  if (status)
-    digitalWrite(led[i], HIGH);
-  else
-    digitalWrite(led[i], LOW);
+  digitalWrite(led[i], status);
 
   led_status[i] = status;
 }
@@ -56,14 +53,7 @@ void updateLed(int i, bool status)
 void updateLeds(bool status)
 {
   for (int i = 0; i < N; i++)
-  {
-    if (status)
-      digitalWrite(led[i], HIGH);
-    else
-      digitalWrite(led[i], LOW);
-
-    led_status[i] = status;
-  }
+    updateLed(i, status);
 }
 
 int getLoad()
