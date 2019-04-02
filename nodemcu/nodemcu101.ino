@@ -74,9 +74,11 @@ void loop()
       Serial.print("\tL:");
       Serial.println(load);
 
+      temp = DHT.temperature;
+
       HTTPClient http;
 
-      String url = "https://load-forecasting.herokuapp.com/log?q=1403200" + String(load);
+      String url = get_url(user, temp, load);
 
       http.begin(url);
       Serial.println(url);
@@ -104,4 +106,9 @@ void blink_led(int ledPinNumber)
   digitalWrite(ledPinNumber, HIGH);
   delay(500);
   digitalWrite(ledPinNumber, LOW);
+}
+
+String get_url(String user, int temp, int load)
+{
+  return "http://minimal-pile.000webhostapp.com/seqload?user=" + user + "&temp=" + String(temp) + "&load=" + String(load);
 }
