@@ -1,8 +1,8 @@
 #include <ESP8266WiFi.h>
 #include <ESP8266HTTPClient.h>
 
-const char *ssid = "abcd";
-const char *password = "abcdefgh";
+const char *ssid = "TheAlpha iPhone";
+const char *password = "15152616";
 
 #include <dht.h>
 #define DHT11_PIN A0
@@ -78,7 +78,7 @@ void loop()
 
       HTTPClient http;
 
-      String url = get_url(user, temp, load);
+      String url = get_url("omer1", temp, load);
 
       http.begin(url);
       Serial.println(url);
@@ -110,5 +110,5 @@ void blink_led(int ledPinNumber)
 
 String get_url(String user, int temp, int load)
 {
-  return "http://minimal-pile.000webhostapp.com/seqload?user=" + user + "&temp=" + String(temp) + "&load=" + String(load);
+  return "http://000.asisodia.com/seqload?user=" + user + "&temp=" + String(temp) + "&load=" + String(load);
 }
